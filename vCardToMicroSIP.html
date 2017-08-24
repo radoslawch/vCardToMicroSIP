@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vCardToMicroSIP</title>
+  <meta charset="UTF-8">  
+  <link rel="stylesheet" type="text/css" href="vCardToMicroSIP.css">
+</head>
+
+<body>
+<script src="vCardToMicroSIP.js"></script>
+Select contact.xml: <input type="file" id="xml" name="vcard"><br>
+Select vCards: <input type="file" id="vcard" name="vcard" multiple>
+<input onclick="readvCard();" type="button" value="convert"><br>
+Check presence<input type="checkbox" id="presence">
+
+<div id="output"></div>
+</body>
+</html>

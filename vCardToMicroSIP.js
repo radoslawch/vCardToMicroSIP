@@ -6,7 +6,7 @@ function readvCard(){
 		reader.readAsText(xml, "UTF-8");
 		reader.onload = function (evt) {
 			xmlContent = evt.target.result;
-			xmlContent = xmlContent.slice(0,-15); // remove \r\n</contacts>
+			xmlContent = xmlContent.slice(0,-13); // remove \r\n</contacts>
 		}
 		reader.onerror = function (evt) {			
 			document.getElementById("output").innerText += "error reading xml\r\n";
@@ -38,14 +38,14 @@ function readvCard(){
 }
 
 function parsevCard(vcard){
-	let fn = vcard.match(/(FN:).*/g)[0].slice(3);
-	console.log(fn);
-	let numbers = vcard.match(/(TEL;.*:).*/g);
-	for(let number of numbers){
-		number = number.slice(vcard.match(/(TEL;.*:).*/g)[0].indexOf(":")+1);
-		console.log(number);
-		appendXml(fn, number);
-	}	
+	let fn = vcard.match(/(FN|CN|fn|cn):.*/g)[0].slice(3);
+	let numbers = vcard.match(/((tel|TEL|phone|PHONE).*:).*/g);
+	if(numbers != null && typeof numbers == "object"){
+		for(let number of numbers){
+			number = number.slice(number.indexOf(":")+1);
+			appendXml(fn, number);
+		}	
+	}
 }
 
 function appendXml(fn, number){
